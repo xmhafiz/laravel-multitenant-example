@@ -104,6 +104,33 @@ public function boot()
 }
 ```
 
+Add tenants connection
+
+```php
+'connections' => [
+
+    'mysql' => [
+        ...
+    ],
+    
+    'tenants' => [
+        'driver' => 'mysql',
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => env('DB_PORT', '3306'),
+        'database' => env('DB_DATABASE', 'forge'),
+        'username' => env('DB_USERNAME', 'forge'),
+        'password' => env('DB_PASSWORD', ''),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+        'engine' => null,
+    ],
+    
+    ...
+```
+
 ## Step 4: Setup Observer
 
 Create folder and file `app/Observers/UserObserver.php` and add below code. This will add event listener when user is created, new database will be created for that user based on with name "user_{id}" (can be customized).
