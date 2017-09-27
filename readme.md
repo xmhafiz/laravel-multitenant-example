@@ -104,7 +104,7 @@ public function boot()
 }
 ```
 
-Add tenants connection
+Add tenants connection in `config/database.php`
 
 ```php
 'connections' => [
