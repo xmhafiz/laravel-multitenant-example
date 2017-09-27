@@ -19,5 +19,7 @@ class UserController extends Controller
     		'email' => $request->name . '@example.com',
     		'password' => 'secret',
     	]);
+
+        return ['status' => 'success'];
     }
 }

@@ -1,14 +1,17 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Orchestra\Tenanti\Migration;
 
-class CreateTenantTasksTable extends Migration
+class UserTenantCreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @param  string|int  $id
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      *
      * @return void
      */
@@ -17,6 +20,7 @@ class CreateTenantTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('task_name');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
@@ -24,10 +28,13 @@ class CreateTenantTasksTable extends Migration
     /**
      * Reverse the migrations.
      *
+     * @param  string|int  $id
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     *
      * @return void
      */
     public function down($id, Model $model)
     {
-        Schema::drop("tasks");
+        Schema::drop('tasks');
     }
 }
