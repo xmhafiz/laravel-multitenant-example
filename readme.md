@@ -258,4 +258,5 @@ class TaskController extends Controller
 [https://github.com/orchestral/tenanti](https://github.com/orchestral/tenanti)
 [https://github.com/crynobone/todoist/compare/single-database...multi-database](https://github.com/crynobone/todoist/compare/single-database...multi-database)
 
-
+## License
+Licensed under the [MIT license](http://opensource.org/licenses/MIT)
