@@ -89,7 +89,9 @@ return [
 
 ## Step 3: Setup Provider
 
-Open `app/Providers/AppServiceProvider.php` and update `boot` function.
+Open `app/Providers/AppServiceProvider.php` and update `boot` function. 
+
+This will use 'tenants' connection and altering database config to use our custom prefix database name along with entiy id. In our example we use user_{id}.
 
 ```php
 public function boot()
@@ -97,7 +99,7 @@ public function boot()
     User::observe(new UserObserver);
 
     Tenanti::connection('tenants', function (User $entity, array $config) {
-        $config['database'] = "user_{$entity->getKey()}";
+        $config['database'] = "user_{$entity->id}";
 
         return $config;
     });
@@ -195,14 +197,65 @@ Use tenanti command as state in the [github](https://github.com/orchestral/tenan
 Example:
 `php artisan tenanti:make user create_tasks_table`
 
-This will create "user_tenant_create_tasks_table.php" file.
+This will create "database/tenant/users/user_tenant_create_tasks_table.php" file.
 
 ## Lastly
-As refer to my example API to create and listing user in `app/Controller/Api/`, the example there will create a user which will trigger the observer of User to create tenant's database.
+
+### Create User (tenant)
+As refer to my example API to create and listing user in `app/Http/Controllers/Api/`, the example there will create a user which will trigger the observer of User to create tenant's database.
 
 After run the below POST request, check database and it should create a new databse for tenants along with migrations.
 
 ![image1](postman2.png)
 ![image1](postman1.png)
+
+### Create Task for User
+
+This is simple example to add user's task for tenant's database. 
+
+```php
+class TaskController extends Controller
+{
+	public function index(Request $request) {
+
+		// to get user's task
+		
+		// check id - this can be replaced with Auth user / subdomain in order to 
+		// determine which tenant database to use
+		$this->validate($request, [
+			'user_id' => 'required'
+		]);
+		$user = User::find($request->user_id);
+
+		// below line can be created once at middleware
+		Tenanti::driver('user')->asDefaultConnection($user, 'user_{id}');
+
+		return Task::all();
+	}
+
+    public function store(Request $request) {
+    	$this->validate($request, [
+    		'user_id' => 'required'
+    	]);
+
+		$user = User::find($request->user_id);
+		Tenanti::driver('user')->asDefaultConnection($user, 'user_{id}');
+
+    	Task::create([
+    		'task_name' => $request->task_namename
+    	]);
+
+        return ['status' => 'success'];
+    }
+}
+```
+![image1](postman3.png)
+![image1](postman4.png)
+
+
+## Reference
+
+[https://github.com/orchestral/tenanti](https://github.com/orchestral/tenanti)
+[https://github.com/crynobone/todoist/compare/single-database...multi-database](https://github.com/crynobone/todoist/compare/single-database...multi-database)
 
 

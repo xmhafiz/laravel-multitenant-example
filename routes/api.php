@@ -15,3 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('user', 'Api\UserController@index');
 Route::post('user', 'Api\UserController@store');
+
+
+Route::get('task', 'Api\TaskController@index');
+Route::post('task', 'Api\TaskController@store');

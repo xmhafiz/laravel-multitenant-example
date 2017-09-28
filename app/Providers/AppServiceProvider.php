@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(new UserObserver);
 
         Tenanti::connection('tenants', function (User $entity, array $config) {
-            $config['database'] = "user_{$entity->getKey()}";
+            $config['database'] = "user_{$entity->id}";
 
             return $config;
         });
