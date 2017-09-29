@@ -1,8 +1,10 @@
 # Example on Multi Tenant Database using [orchestral/tenanti](https://github.com/orchestral/tenanti)
 
-Simple project to create users, where each users will have its own database. The database contains tasks and logs table.
+A simple Laravel 5.4 project with multi tenant capabilites. In this project we will create users, where each users will have its own database. The tenant's database contains tasks and logs table.
 
 ## Step 1: Installation
+Originally written in orchestral/tenanti.
+
 ### Version Compatibility
 
 Laravel  | Tenanti
@@ -80,7 +82,7 @@ return [
     'drivers' => [
         'user' => [
             'model'  => App\User::class,
-            'path'   => database_path('tenanti/user'),
+            'path'   => database_path('tenant/user'),
             'shared' => false,
         ],
     ],
@@ -197,7 +199,7 @@ Use tenanti command as state in the [github](https://github.com/orchestral/tenan
 Example:
 `php artisan tenanti:make user create_tasks_table`
 
-This will create "database/tenant/users/user_tenant_create_tasks_table.php" file.
+This will create "database/tenant/user/user_tenant_create_tasks_table.php" file.
 
 ## Lastly
 
