@@ -249,6 +249,28 @@ class TaskController extends Controller
     }
 }
 ```
+
+To make it in middleware, just create new Middleware name example: `CompanyUser`
+
+```php
+class CompanyUser
+{
+    public function handle($request, Closure $next)
+    {
+        //check which current user
+        $user = Auth::user();
+
+        if ($user) {
+            Tenanti::driver('user')->asDefaultConnection($user, 'user_{$user->id}');
+        } else {
+            return redirect() ->route('home.index')->withErrors('User not exists');
+        }
+        return $next($request);
+    }
+}
+
+```
+
 ![image1](postman3.png)
 ![image1](postman4.png)
 
