@@ -252,6 +252,11 @@ class TaskController extends Controller
 }
 ```
 
+![image1](postman3.png)
+![image1](postman4.png)
+
+###Add Middleware
+
 To make it in middleware, just create new Middleware name example: `CompanyUser`
 
 ```php
@@ -273,14 +278,11 @@ class CompanyUser
 
 ```
 
-![image1](postman3.png)
-![image1](postman4.png)
-
 
 ## Reference
 
-[https://github.com/orchestral/tenanti](https://github.com/orchestral/tenanti)
-[https://github.com/crynobone/todoist/compare/single-database...multi-database](https://github.com/crynobone/todoist/compare/single-database...multi-database)
+- [https://github.com/orchestral/tenanti](https://github.com/orchestral/tenanti)
+- [https://github.com/crynobone/todoist/compare/single-database...multi-database](https://github.com/crynobone/todoist/compare/single-database...multi-database)
 
 ## License
 Licensed under the [MIT license](http://opensource.org/licenses/MIT)
